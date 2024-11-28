@@ -14,10 +14,16 @@ const registerAgenda = async () => {
     ])
 }
 
-registerAgenda().catch(console.error);
 const app = express();
 app.use(express.json());
 app.use("/dashboard", Agendash(agenda))
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+app.get("/trigger", (req, res) => {
+  registerAgenda().catch(console.error);
+  return res.send("Agenda Triggered");
+})
+
+
